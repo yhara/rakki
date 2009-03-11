@@ -5,6 +5,7 @@ class Page
   GBLOB_CACHE = {}
   LOG_CACHE = {}
   EXT = '.org'
+  class NotFoundError < StandardError; end
 
   attr_accessor :language
 
@@ -162,7 +163,7 @@ class Page
   end
 
   def content
-    read || ''
+    read || (raise NotFoundError)
   end
 
   def exists?
