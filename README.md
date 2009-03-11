@@ -37,6 +37,10 @@ also needs Git to be installed
 
     gem install builder
 
+### coderay
+
+    gem install coderay
+
 ## Execute
 
     ruby start.rb
