@@ -12,6 +12,13 @@ class Pages
     setup_page(*name)
 
     @toc, @html = @page.to_toc, @page.to_html
+  rescue Page::NotFoundError => ex
+    if locale != RAKKI.default_language
+      session[:language] = RAKKI.default_language
+      redirect request.url
+    else
+      @toc = []; @html = "page not found"
+    end
   end
 
   def edit(*name)
@@ -78,6 +85,8 @@ class Pages
     @page = Page.new(@name, locale, sha)
     @title = to_title(@name)
     @toc, @html = @page.to_toc, @page.to_html
+  rescue Page::NotFoundError => ex
+    @toc = []; @html = "page not found"
   end
 
   def list
